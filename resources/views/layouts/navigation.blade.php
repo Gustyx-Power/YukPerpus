@@ -5,28 +5,41 @@
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
         </ul>
     </form>
-    <ul class="navbar-nav navbar-right">
-        <li class="dropdown">
-            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                <img alt="image" src="{{ auth()->user()->foto_url }}" class="rounded-circle mr-1" style="width: 30px; height: 30px; object-fit: cover;">
-                <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->nama }}</div>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right">
-                <div class="dropdown-title">{{ auth()->user()->level }}</div>
-                <a href="{{ route('profile.edit') }}" class="dropdown-item has-icon">
-                    <i class="far fa-user"></i> Profile
-                </a>
-                <div class="dropdown-divider"></div>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger"
-                        onclick="event.preventDefault(); this.closest('form').submit();">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </a>
-                </form>
+    <ul class="navbar-nav navbar-right" style="position: relative; z-index: 1030;">
+    <li class="dropdown">
+        <!-- Toggle untuk desktop -->
+        <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user d-none d-md-flex align-items-center">
+            <img alt="image" src="{{ auth()->user()->foto_url }}" class="rounded-circle mr-1" style="width: 30px; height: 30px; object-fit: cover;">
+            <div class="d-none d-lg-inline-block">Hi, {{ auth()->user()->nama }}</div>
+        </a>
+        
+        <!-- Toggle untuk mobile -->
+        <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user d-flex d-md-none align-items-center">
+            <img alt="image" src="{{ auth()->user()->foto_url }}" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+        </a>
+        
+        <div class="dropdown-menu dropdown-menu-right" style="position: absolute; right: 0; left: auto;">
+            <div class="dropdown-title d-flex align-items-center">
+                <img alt="image" src="{{ auth()->user()->foto_url }}" class="rounded-circle mr-2" style="width: 30px; height: 30px; object-fit: cover;">
+                <div>
+                    <div>{{ auth()->user()->nama }}</div>
+                    <small class="text-muted">{{ auth()->user()->level }}</small>
+                </div>
             </div>
-        </li>
-    </ul>
+            <a href="{{ route('profile.edit') }}" class="dropdown-item has-icon">
+                <i class="far fa-user"></i> Profile
+            </a>
+            <div class="dropdown-divider"></div>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger"
+                    onclick="event.preventDefault(); this.closest('form').submit();">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </form>
+        </div>
+    </li>
+</ul>
 </nav>
 
 <div class="main-sidebar sidebar-style-2">
