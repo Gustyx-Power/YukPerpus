@@ -9,6 +9,7 @@ use App\Http\Controllers\BookBrowseController;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\SocialLoginController;
+use App\Http\Controllers\ReportController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -43,6 +44,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+     // Report generation routes (admin and petugas only)
+        Route::middleware([IsAdmin::class])->group(function () {
+            Route::get('/reports/books', [ReportController::class, 'generateBookReport'])->name('reports.books');
+            Route::get('/reports/fines', [ReportController::class, 'generateFineReport'])->name('reports.fines');
+        });
+
+
 });
 
 // Social Login Routes
