@@ -7,6 +7,14 @@
         </div>
     </x-slot>
 
+    @if(isset($showExportButtons) && $showExportButtons)
+    <div class="flex flex-wrap gap-2 mb-4">
+        <a href="{{ route('export.books') }}" class="filament-button bg-primary-600 text-white">Export Buku (PDF)</a>
+        <a href="{{ route('export.users') }}" class="filament-button bg-primary-600 text-white">Export User (PDF)</a>
+        <a href="{{ route('export.loans') }}" class="filament-button bg-primary-600 text-white">Export Peminjam (PDF)</a>
+    </div>
+    @endif
+
     <div class="row mb-4 justify-content-center" style="gap: 0;">
         <div class="col-lg-3 col-md-6 col-12 mb-3 d-flex">
             <div class="card shadow-sm flex-fill d-flex flex-row align-items-center p-3" style="gap: 1rem; min-height: 100px;">
