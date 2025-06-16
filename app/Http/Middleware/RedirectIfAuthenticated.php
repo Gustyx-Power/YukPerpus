@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Controllers\AuthController;
+use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,15 +22,14 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 $user = Auth::user();
-
-                // Redirect berdasarkan level user
-                switch ($user->level) {
-                    case 'admin':
-                        return redirect('/admin/dashboard');
-                    case 'petugas':
-                        return redirect('/petugas/dashboard');
-                    default:
-                        return redirect('/member/dashboard');
+                
+                // Redirect berdasarkan role
+                if ($user->isAdmin()) {
+                    return redirect('/admin');
+                } elseif ($user->isPetugas()) {
+                    return redirect('/petugas');
+                } else {
+                    return redirect('/user');
                 }
             }
         }

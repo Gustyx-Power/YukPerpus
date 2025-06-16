@@ -7,11 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'nama',
         'email',
@@ -24,11 +30,21 @@ class User extends Authenticatable
         'github_id',
     ];
 
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
@@ -43,9 +59,17 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the user's name.
+     */
+    public function getNameAttribute()
+    {
+        return $this->nama;
+    }
+
+    /**
      * Check if user is admin
      */
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return $this->level === 'admin';
     }
@@ -53,7 +77,7 @@ class User extends Authenticatable
     /**
      * Check if user is petugas
      */
-    public function isPetugas()
+    public function isPetugas(): bool
     {
         return $this->level === 'petugas';
     }
@@ -61,7 +85,7 @@ class User extends Authenticatable
     /**
      * Check if user is regular member
      */
-    public function isMember()
+    public function isAnggota(): bool
     {
         return $this->level === 'anggota';
     }

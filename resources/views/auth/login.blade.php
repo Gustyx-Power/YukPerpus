@@ -11,53 +11,50 @@
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{asset('assets/modules/bootstrap-social/bootstrap-social.css')}}">
     <link rel="stylesheet" href="{{asset('assets/modules/izitoast/css/iziToast.min.css')}}">
-    <!-- Template CSS -->
-    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/components.css')}}">
     <style>
         /* CSS Variables for Theme */
         :root {
-            --bg-gradient-start: #6777ef; /* Warna awal gradasi mode terang */
-            --bg-gradient-end: #00b0ff;   /* Warna akhir gradasi mode terang */
-            --container-bg: rgba(255, 255, 255, 0.95); /* Background container mode terang */
-            --left-col-bg: rgba(103, 119, 239, 0.1); /* Background kolom kiri mode terang */
-            --right-col-bg: #ffffff; /* Background kolom kanan mode terang */
-            --text-color: #333; /* Warna teks umum mode terang */
-            --heading-color: #6777ef; /* Warna judul mode terang */
-            --card-title-color: #333; /* Warna judul kartu mode terang */
-            --input-border-color: #e0e0e0; /* Warna border input mode terang */
-            --input-bg-color: #ffffff; /* Warna background input mode terang */
-            --input-text-color: #333; /* Warna teks input mode terang */
-            --button-bg: #6777ef; /* Warna background tombol mode terang */
-            --button-hover-bg: #5566d9; /* Warna background tombol hover mode terang */
-            --link-color: #6777ef; /* Warna link mode terang */
-            --muted-text-color: #6c757d; /* Warna teks muted mode terang */
-            --social-btn-bg: #ffffff; /* Warna background tombol sosial mode terang */
-            --header-text-color: #333; /* Warna teks header mode terang */
-            --theme-label-color: #555; /* Warna label tema mode terang */
-            --university-text-color: #333; /* Warna teks universitas */
+            --bg-gradient-start: #6366f1; /* Filament Indigo */
+            --bg-gradient-end: #3b82f6;   /* Filament Blue */
+            --container-bg: rgba(255, 255, 255, 0.98);
+            --left-col-bg: rgba(99, 102, 241, 0.08);
+            --right-col-bg: #fff;
+            --text-color: #22223b;
+            --heading-color: #6366f1;
+            --card-title-color: #22223b;
+            --input-border-color: #c7d2fe;
+            --input-bg-color: #f8fafc;
+            --input-text-color: #22223b;
+            --button-bg: #6366f1;
+            --button-hover-bg: #4f46e5;
+            --link-color: #6366f1;
+            --muted-text-color: #64748b;
+            --social-btn-bg: #f1f5f9;
+            --header-text-color: #22223b;
+            --theme-label-color: #6366f1;
+            --university-text-color: #22223b;
         }
 
         body.dark-mode {
-            --bg-gradient-start: #1a202c; /* Warna awal gradasi mode gelap */
-            --bg-gradient-end: #2d3748; /* Warna akhir gradasi mode gelap */
-            --container-bg: rgba(45, 55, 72, 0.95); /* Background container mode gelap */
-            --left-col-bg: rgba(74, 85, 104, 0.2); /* Background kolom kiri mode gelap */
-            --right-col-bg: #2d3748; /* Background kolom kanan mode gelap */
-            --text-color: #e2e8f0; /* Warna teks umum mode gelap */
-            --heading-color: #90cdf4; /* Warna judul mode gelap */
-            --card-title-color: #e2e8f0; /* Warna judul kartu mode gelap */
-            --input-border-color: #4a5568; /* Warna border input mode gelap */
-            --input-bg-color: #4a5568; /* Warna background input mode gelap */
-            --input-text-color: #e2e8f0; /* Warna teks input mode gelap */
-            --button-bg: #4299e1; /* Warna background tombol mode gelap */
-            --button-hover-bg: #3182ce; /* Warna background tombol hover mode gelap */
-            --link-color: #90cdf4; /* Warna link mode gelap */
-            --muted-text-color: #a0aec0; /* Warna teks muted mode gelap */
-            --social-btn-bg: #4a5568; /* Warna background tombol sosial mode gelap */
-            --header-text-color: #e2e8f0; /* Warna teks header mode gelap */
-            --theme-label-color: #cbd5e0; /* Warna label tema mode gelap */
-            --university-text-color: #e2e8f0; /* Warna teks universitas */
+            --bg-gradient-start: #181a2a;
+            --bg-gradient-end: #23263a;
+            --container-bg: rgba(31, 41, 55, 0.98);
+            --left-col-bg: rgba(99, 102, 241, 0.12);
+            --right-col-bg: #23263a;
+            --text-color: #e0e7ef;
+            --heading-color: #a5b4fc;
+            --card-title-color: #e0e7ef;
+            --input-border-color: #6366f1;
+            --input-bg-color: #23263a;
+            --input-text-color: #e0e7ef;
+            --button-bg: #6366f1;
+            --button-hover-bg: #4f46e5;
+            --link-color: #a5b4fc;
+            --muted-text-color: #94a3b8;
+            --social-btn-bg: #23263a;
+            --header-text-color: #e0e7ef;
+            --theme-label-color: #a5b4fc;
+            --university-text-color: #e0e7ef;
         }
 
         body, html {
@@ -295,18 +292,41 @@
         }
         
         .btn-info {
-            background-color: var(--button-bg); /* Menggunakan variabel untuk background tombol */
+            background-color: var(--button-bg);
             border-color: var(--button-bg);
+            color: #fff;
             border-radius: 8px;
             padding: 12px 25px;
             font-size: 1rem;
             font-weight: 600;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
+            transition: background-color 0.3s, border-color 0.3s;
         }
         
         .btn-info:hover {
             background-color: var(--button-hover-bg);
             border-color: var(--button-hover-bg);
+        }
+        
+        .btn-outline-danger {
+            background: #fff;
+            color: #ea4335;
+            border: 2px solid #ea4335;
+        }
+        
+        .btn-outline-danger:hover {
+            background: #ea4335;
+            color: #fff;
+        }
+        
+        .btn-outline-dark {
+            background: #fff;
+            color: #23272f;
+            border: 2px solid #23272f;
+        }
+        
+        .btn-outline-dark:hover {
+            background: #23272f;
+            color: #fff;
         }
         
         .text-info {
@@ -430,7 +450,9 @@
                         <div class="form-group mb-3">
                             <label for="email">Email</label>
                             <input id="email" type="email" class="form-control" name="email" tabindex="1" autofocus placeholder="Masukkan Email" value="{{ old('email') }}">
-                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                            @error('email')
+                                <div class="text-red-600 text-sm mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group mb-3">
                             <div class="d-block">
@@ -442,7 +464,9 @@
                                 </div>
                             </div>
                             <input id="password" type="password" class="form-control" name="password" tabindex="2" placeholder="Masukan Password">
-                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                            @error('password')
+                                <div class="text-red-600 text-sm mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group mb-4">
                             <button type="submit" class="btn btn-info btn-lg btn-block" tabindex="4">

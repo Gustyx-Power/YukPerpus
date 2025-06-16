@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -32,15 +33,15 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            $user = Auth::user();
 
-            // Redirect berdasarkan level user
-            switch (Auth::user()->level) {
-                case 'admin':
-                    return redirect()->intended('/admin/dashboard');
-                case 'petugas':
-                    return redirect()->intended('/petugas/dashboard');
-                default:
-                    return redirect()->intended('/member/dashboard');
+            // Redirect ke panel yang sesuai
+            if ($user->level === 'admin') {
+                return redirect('/admin/dashboard');
+            } elseif ($user->level === 'petugas') {
+                return redirect('/petugas/dashboard');
+            } else {
+                return redirect('/user/dashboard');
             }
         }
 
@@ -101,10 +102,8 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
         return redirect('/login');
     }
 

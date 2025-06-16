@@ -1,9 +1,19 @@
 <x-app-layout>
+
+
     <x-slot name="header">
         <div class="d-flex align-items-center mb-4" style="min-height:48px;">
             <h1 class="section-title mb-0" style="font-size:2rem; font-weight:700; color:#34395e;">Dashboard</h1>
         </div>
     </x-slot>
+
+    @if(isset($showExportButtons) && $showExportButtons)
+    <div class="flex flex-wrap gap-2 mb-4">
+        <a href="{{ route('export.books') }}" class="filament-button bg-primary-600 text-white">Export Buku (PDF)</a>
+        <a href="{{ route('export.users') }}" class="filament-button bg-primary-600 text-white">Export User (PDF)</a>
+        <a href="{{ route('export.loans') }}" class="filament-button bg-primary-600 text-white">Export Peminjam (PDF)</a>
+    </div>
+    @endif
 
     <div class="row mb-4 justify-content-center" style="gap: 0;">
         <div class="col-lg-3 col-md-6 col-12 mb-3 d-flex">
@@ -40,6 +50,28 @@
         </div>
     </div>
 
+    {{-- Bagian Tombol Laporan --}}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h4>Generate Laporan PDF</h4>
+                </div>
+                <div class="card-body d-flex justify-content-start" style="gap: 10px;">
+                    <a href="{{ route('reports.books') }}" target="_blank" class="btn btn-primary btn-icon icon-left">
+                        <i class="fas fa-book"></i> Laporan Buku
+                    </a>
+                    <a href="{{ route('reports.fines') }}" target="_blank" class="btn btn-danger btn-icon icon-left">
+                        <i class="fas fa-file-invoice-dollar"></i> Laporan Denda
+                    </a>
+                    {{-- Tambahkan tombol laporan lain di sini jika ada --}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- Akhir Bagian Tombol Laporan --}}
+
+
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -70,8 +102,8 @@
                                         </td>
                                         <td>{{ $loan->tanggal_pinjam->format('d/m/Y') }}</td>
                                         <td>
-                                            <span class="badge badge-{{ $loan->status === 'reserved' ? 'warning' : 
-                                                ($loan->status === 'dipinjam' ? 'primary' : 
+                                            <span class="badge badge-{{ $loan->status === 'reserved' ? 'warning' :
+                                                ($loan->status === 'dipinjam' ? 'primary' :
                                                 ($loan->status === 'dikembalikan' ? 'success' : 'danger')) }}">
                                                 {{ ucfirst($loan->status) }}
                                             </span>
@@ -167,6 +199,10 @@
         .btn-primary:hover {
             background-color: #2a2f4a;
             border-color: #2a2f4a;
+        }
+        /* Tambahan untuk tombol laporan jika menggunakan Font Awesome */
+        .btn-icon.icon-left i {
+            margin-right: 0.5rem;
         }
     </style>
 </x-app-layout>

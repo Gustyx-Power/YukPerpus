@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,10 +26,26 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
+        
+        // Clear any previous intended URL
+        $request->session()->forget('url.intended');
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // Redirect berdasarkan level user
+        $user = Auth::user();
+        switch ($user->level) {
+            case 'admin':
+                return redirect('/admin');
+            case 'petugas':
+                return redirect('/petugas');
+            case 'anggota':
+                return redirect('/user');
+            default:
+                Auth::logout();
+                return redirect('/login')->withErrors([
+                    'email' => 'Level user tidak valid.',
+                ]);
+        }
     }
 
     /**
@@ -38,10 +55,13 @@ class AuthenticatedSessionController extends Controller
     {
         Auth::guard('web')->logout();
 
+        // Clear the session
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
+        
+        // Clear any stored intended URL
+        $request->session()->forget('url.intended');
 
-        return redirect('/');
+        return redirect('/login');
     }
 }

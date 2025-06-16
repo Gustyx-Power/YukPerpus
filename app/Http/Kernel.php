@@ -3,6 +3,9 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\PetugasMiddleware;
+use App\Http\Middleware\AnggotaMiddleware;
 
 class Kernel extends HttpKernel
 {
@@ -48,7 +51,7 @@ class Kernel extends HttpKernel
     /**
      * The application's middleware aliases.
      *
-     * Aliases may be used instead of class names to assign middleware to routes and groups.
+     * Aliases may be used instead of class names to conveniently assign middleware to routes and groups.
      *
      * @var array<string, class-string|string>
      */
@@ -64,7 +67,10 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'is_admin' => \App\Http\Middleware\IsAdmin::class,
+        'role' => \App\Http\Middleware\CheckRole::class,
+        'admin' => AdminMiddleware::class,
+        'petugas' => PetugasMiddleware::class,
+        'anggota' => AnggotaMiddleware::class,
     ];
 
     /**
