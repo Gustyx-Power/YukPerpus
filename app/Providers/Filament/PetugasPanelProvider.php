@@ -16,6 +16,8 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Http\Middleware\Authenticate;
+use App\Http\Middleware\CheckRole;
 
 class PetugasPanelProvider extends PanelProvider
 {
@@ -28,10 +30,12 @@ class PetugasPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Orange,
             ])
-            ->discoverResources(in: app_path('Filament/Petugas/Resources'), for: 'App\\Filament\\Petugas\\Resources')
+            ->discoverResources(in: app_path('Filament/Petugas/Resources'), for: 'App\Filament\Petugas\Resources')
+            ->discoverResources(in: app_path('Filament/Petugas/Resources'), for: 'App\Filament\Petugas\Resources')
             ->discoverPages(in: app_path('Filament/Petugas/Pages'), for: 'App\\Filament\\Petugas\\Pages')
             ->pages([
-                
+                \App\Filament\Petugas\Pages\PetugasDashboard::class,
+                \App\Filament\Pages\Rakbuku::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Petugas/Widgets'), for: 'App\\Filament\\Petugas\\Widgets')
             ->widgets([
@@ -49,8 +53,8 @@ class PetugasPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
-                'auth',
-            ])
-            ->authGuard('web');
+                Authenticate::class,
+                CheckRole::class.':petugas',
+            ]);
     }
 } 
