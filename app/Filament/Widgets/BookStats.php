@@ -8,6 +8,13 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class BookStats extends BaseWidget
 {
+    protected static ?int $sort = 1;
+
+    public static function getDefaultColumnSpan(): int
+    {
+        return 6;
+    }
+
     protected function getHeading(): string
     {
         return 'Statistik Buku';
