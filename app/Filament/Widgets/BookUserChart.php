@@ -25,8 +25,8 @@ class BookUserChart extends ChartWidget
             ->groupBy('month')
             ->orderBy('month')
             ->get()
-            ->pluck('total', 'month')
-            ->toArray();
+            ->keyBy('month')
+            ->map(fn ($item) => $item->total);
 
         $userData = User::select(
             DB::raw('DATE_FORMAT(created_at, "%b %Y") as month'),
@@ -36,20 +36,23 @@ class BookUserChart extends ChartWidget
             ->groupBy('month')
             ->orderBy('month')
             ->get()
-            ->pluck('total', 'month')
-            ->toArray();
+            ->keyBy('month')
+            ->map(fn ($item) => $item->total);
+
+        $bookCounts = $months->map(fn ($month) => $bookData->get($month, 0))->toArray();
+        $userCounts = $months->map(fn ($month) => $userData->get($month, 0))->toArray();
 
         return [
             'datasets' => [
                 [
                     'label' => 'Buku Baru',
-                    'data' => $months->map(fn ($month) => $bookData[$month] ?? 0)->toArray(),
+                    'data' => $bookCounts,
                     'borderColor' => '#10B981',
                     'backgroundColor' => '#10B981',
                 ],
                 [
                     'label' => 'User Baru',
-                    'data' => $months->map(fn ($month) => $userData[$month] ?? 0)->toArray(),
+                    'data' => $userCounts,
                     'borderColor' => '#3B82F6',
                     'backgroundColor' => '#3B82F6',
                 ],

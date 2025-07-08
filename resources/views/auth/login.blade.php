@@ -196,7 +196,7 @@
             min-height: 600px;
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
-        
+
         .login-left, .login-right {
             flex: 1;
             padding: 40px;
@@ -206,28 +206,28 @@
             align-items: center;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
-        
+
         .login-left {
             background-color: var(--left-col-bg); /* Menggunakan variabel untuk background kolom kiri */
             color: var(--text-color);
         }
-        
+
         .login-right {
             background-color: var(--right-col-bg); /* Menggunakan variabel untuk background kolom kanan */
         }
-        
+
         .login-left h2 {
             color: var(--heading-color);
             margin-bottom: 30px;
             font-weight: 700;
             transition: color 0.3s ease;
         }
-        
+
         .social-buttons {
             width: 100%;
             max-width: 300px;
         }
-        
+
         .social-buttons .btn {
             margin-bottom: 15px;
             border-radius: 8px;
@@ -242,34 +242,34 @@
             border-color: var(--input-border-color);
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
-        
+
         .social-buttons .btn i {
             margin-right: 10px;
         }
-        
+
         .login-card {
             width: 100%;
             max-width: 400px;
         }
-        
+
         .card-header {
             background-color: transparent;
             border-bottom: none;
             padding: 0 0 20px 0;
             text-align: center;
         }
-        
+
         .card-header h4 {
             margin-bottom: 0;
             color: var(--card-title-color);
             font-weight: 700;
             transition: color 0.3s ease;
         }
-        
+
         .card-body {
             padding: 0;
         }
-        
+
         .form-control {
             border-radius: 8px;
             border-color: var(--input-border-color);
@@ -278,19 +278,19 @@
             color: var(--input-text-color);
             transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
         }
-        
+
         .form-control:focus {
             border-color: var(--link-color);
             box-shadow: 0 0 0 0.2rem rgba(103, 119, 239, 0.25);
         }
-        
+
         .form-group label {
             font-weight: 600;
             color: var(--text-color);
             margin-bottom: 8px;
             transition: color 0.3s ease;
         }
-        
+
         .btn-info {
             background-color: var(--button-bg);
             border-color: var(--button-bg);
@@ -301,48 +301,48 @@
             font-weight: 600;
             transition: background-color 0.3s, border-color 0.3s;
         }
-        
+
         .btn-info:hover {
             background-color: var(--button-hover-bg);
             border-color: var(--button-hover-bg);
         }
-        
+
         .btn-outline-danger {
             background: #fff;
             color: #ea4335;
             border: 2px solid #ea4335;
         }
-        
+
         .btn-outline-danger:hover {
             background: #ea4335;
             color: #fff;
         }
-        
+
         .btn-outline-dark {
             background: #fff;
             color: #23272f;
             border: 2px solid #23272f;
         }
-        
+
         .btn-outline-dark:hover {
             background: #23272f;
             color: #fff;
         }
-        
+
         .text-info {
             color: var(--link-color) !important;
             transition: color 0.3s ease;
         }
-        
+
         a.text-info:hover {
             text-decoration: underline;
         }
-        
+
         .alert {
             border-radius: 8px;
             margin-bottom: 20px;
         }
-        
+
         .mt-2 { margin-top: 0.5rem !important; }
         .mb-2 { margin-bottom: 0.5rem !important; }
         .mb-3 { margin-bottom: 1rem !important; }
@@ -350,7 +350,7 @@
         .d-flex { display: flex !important; }
         .align-items-center { align-items: center !important; }
         .justify-content-center { justify-content: center !important; }
-        
+
         .text-muted {
             color: var(--muted-text-color) !important;
             transition: color 0.3s ease;
@@ -362,11 +362,11 @@
                 flex-direction: column;
                 gap: 10px;
             }
-            
+
             .login-container {
                 flex-direction: column;
             }
-            
+
             .login-left, .login-right {
                 width: 100%;
                 padding: 30px;
@@ -391,7 +391,7 @@
                     </label>
                 </div>
             </div>
-            
+
             <h2>YukPerpus!</h2>
             <p class="text-muted text-center mb-4">Masuk dengan akun sosial Anda</p>
             <div class="social-buttons">
@@ -509,34 +509,34 @@
             if (isDarkMode) {
                 body.classList.add('dark-mode');
                 themeLabel.textContent = 'Tema Gelap';
-                
+
                 // Force reflow to ensure transitions apply
                 void body.offsetWidth;
-                
+
                 // Update all elements that need theme changes
                 document.querySelectorAll('.login-left, .login-right, .form-control, .btn, .university-info').forEach(el => {
                     el.style.transition = 'background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease';
                 });
-                
+
                 // Update university info style
                 updateUniversityInfoStyle(true);
             } else {
                 body.classList.remove('dark-mode');
                 themeLabel.textContent = 'Tema Terang';
-                
+
                 // Force reflow to ensure transitions apply
                 void body.offsetWidth;
-                
+
                 // Update all elements that need theme changes
                 document.querySelectorAll('.login-left, .login-right, .form-control, .btn, .university-info').forEach(el => {
                     el.style.transition = 'background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease';
                 });
-                
+
                 // Update university info style
                 updateUniversityInfoStyle(false);
             }
         }
-        
+
         // Function to update university info style
         function updateUniversityInfoStyle(isDarkMode) {
             const universityInfo = document.querySelector('.university-info');
@@ -552,7 +552,7 @@
         // Check user's preference from local storage
         document.addEventListener('DOMContentLoaded', function() {
             const savedTheme = localStorage.getItem(localStorageKey);
-            
+
             if (savedTheme === 'dark') {
                 darkModeToggle.checked = true;
                 // Force a timeout to ensure DOM is ready before applying theme
@@ -561,7 +561,7 @@
                 darkModeToggle.checked = false;
                 setTimeout(() => setTheme(false), 50);
             }
-            
+
             // Apply theme to university info element
             updateUniversityInfoStyle(savedTheme === 'dark');
         });
@@ -571,7 +571,7 @@
         darkModeToggle.addEventListener('change', function() {
             // Clear any pending timeouts
             if (themeChangeTimeout) clearTimeout(themeChangeTimeout);
-            
+
             // Set up a new timeout
             themeChangeTimeout = setTimeout(() => {
                 if (this.checked) {

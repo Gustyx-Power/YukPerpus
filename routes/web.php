@@ -25,7 +25,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', function () {
         return view('auth.login');
     })->name('login');
-    
+
     Route::get('/register', function () {
         return view('auth.register');
     })->name('register');
@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
     // Dashboard route with role-based redirect
     Route::get('/dashboard', function () {
         $user = Auth::user();
-        
+
         switch ($user->level) {
             case 'admin':
                 return redirect('/admin');
@@ -123,14 +123,14 @@ Route::post('/book-borrow/store', function(Request $request) {
 
     // Update stok buku (kurangi 1)
     $book->decrement('stok');
-    
+
     // Update status buku berdasarkan stok
     if ($book->stok === 0) {
         $book->update(['status' => 'dipinjam']);
     }
 
     return redirect()->back()->with('success', 'Peminjaman berhasil disimpan!');
-})->name('book-borrow.store')->middleware('auth');
+})->name('rakbuku.store')->middleware('auth');
 
 // Handle login submission
 Route::post('/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store'])
