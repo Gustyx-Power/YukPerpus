@@ -23,7 +23,7 @@ class ListLoans extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            BookCards::class,
+            //
         ];
     }
 }

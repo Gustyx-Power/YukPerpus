@@ -6,7 +6,7 @@ use Filament\Pages\Page;
 
 class Rakbuku extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
-    protected static string $view = 'filament.user.pages.rakbuku';
+    protected static string $view = 'filament.pages.rakbuku';
 }
