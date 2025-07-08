@@ -17,7 +17,7 @@ class LoanResource extends Resource
 {
     protected static ?string $model = Loan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-bookmark';
+    protected static ?string $navigationIcon = 'heroicon-o-document-duplicate';
 
     public static function getNavigationGroup(): ?string
     {
@@ -26,7 +26,7 @@ class LoanResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return 'Book Borrow';
+        return 'Reservasi Buku';
     }
 
     public static function getPluralLabel(): string

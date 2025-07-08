@@ -25,7 +25,7 @@ class LoanResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return 'Book Borrow';
+        return 'Reservasi Buku';
     }
 
     public static function getPluralLabel(): string
