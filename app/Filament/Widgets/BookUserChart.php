@@ -15,7 +15,7 @@ class BookUserChart extends ChartWidget
     {
         $months = collect(range(0, 11))->map(function ($month) {
             return now()->subMonths($month)->format('M Y');
-        })->reverse();
+        })->reverse()->values();
 
         $bookData = Book::select(
             DB::raw('DATE_FORMAT(created_at, "%b %Y") as month'),

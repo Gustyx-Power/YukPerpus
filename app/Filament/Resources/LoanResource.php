@@ -52,7 +52,8 @@ class LoanResource extends Resource
                     ->required(),
                 Forms\Components\DatePicker::make('tanggal_kembali')
                     ->required(),
-                Forms\Components\DatePicker::make('tanggal_dikembalikan'),
+                Forms\Components\DatePicker::make('tanggal_dikembalikan')
+                    ->hidden(fn (?string $operation) => $operation === 'create'),
                 Forms\Components\Select::make('status')
                     ->options([
                         'reserved' => 'Reserved',
@@ -94,6 +95,7 @@ class LoanResource extends Resource
                         'dipinjam' => 'primary',
                         'dikembalikan' => 'success',
                         'dibatalkan' => 'danger',
+                        'terlambat' => 'danger',
                     }),
             ])
             ->filters([

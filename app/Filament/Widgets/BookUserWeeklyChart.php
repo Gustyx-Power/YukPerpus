@@ -15,7 +15,7 @@ class BookUserWeeklyChart extends ChartWidget
     {
         $weeks = collect(range(0, 11))->map(function ($week) {
             return now()->subWeeks($week)->startOfWeek()->format('W Y');
-        })->reverse();
+        })->reverse()->values();
 
         $bookData = Book::select(
             DB::raw('DATE_FORMAT(created_at, "%v %Y") as week'),

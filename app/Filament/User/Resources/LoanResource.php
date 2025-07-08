@@ -85,6 +85,7 @@ class LoanResource extends Resource
                         'dipinjam' => 'primary',
                         'dikembalikan' => 'success',
                         'dibatalkan' => 'danger',
+                        'terlambat' => 'danger',
                     }),
             ])
             ->filters([
