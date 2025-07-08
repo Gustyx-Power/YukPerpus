@@ -60,7 +60,8 @@ class BookResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\Select::make('category_id')
                     ->relationship('category', 'nama')
-                    ->required(),
+                    ->required()
+                    ->preload(),
                 Forms\Components\TextInput::make('lokasi_rak')
                     ->maxLength(191)
                     ->default(null),
@@ -110,6 +111,7 @@ class BookResource extends Resource
                         'tersedia' => 'success',
                         'dipinjam' => 'warning',
                         'rusak' => 'danger',
+                        'terlambat' => 'danger',
                     }),
                 Tables\Columns\IconColumn::make('active_status')
                     ->boolean(),

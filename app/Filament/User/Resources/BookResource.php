@@ -64,9 +64,10 @@ class BookResource extends Resource
                     ->default(0),
                 Forms\Components\Textarea::make('deskripsi')
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('category_id')
+                Forms\Components\Select::make('category_id')
+                    ->relationship('category', 'nama')
                     ->required()
-                    ->numeric(),
+                    ->preload(),
                 Forms\Components\TextInput::make('lokasi_rak')
                     ->maxLength(191)
                     ->default(null),
@@ -120,6 +121,7 @@ class BookResource extends Resource
                     ->color(fn (string $state): string => match ($state) {
                         'tersedia' => 'success',
                         'dipinjam' => 'danger',
+                        'terlambat' => 'danger',
                     }),
             ])
             ->filters([
