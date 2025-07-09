@@ -142,6 +142,7 @@ return [
         App\Providers\Filament\UserPanelProvider::class,
         App\Providers\Filament\PetugasPanelProvider::class,
         Filament\Forms\FormsServiceProvider::class,
+        BladeUI\Icons\BladeIconsServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
     ])->toArray(),
 
