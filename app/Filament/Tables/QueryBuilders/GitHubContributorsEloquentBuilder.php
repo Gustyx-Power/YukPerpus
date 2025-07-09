@@ -18,7 +18,7 @@ class GitHubContributorsEloquentBuilder extends Builder
 
     public static function fromCollection(Collection $collection)
     {
-        $instance = new static(new \Illuminate\Database\Query\Builder(null));
+        $instance = new static(new \Illuminate\Database\Query\Builder(app('db')->connection()));
         $instance->collection = $collection;
         return $instance;
     }
