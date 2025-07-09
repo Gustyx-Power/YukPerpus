@@ -69,36 +69,6 @@ class Settings extends Page implements HasForms
     public function submit(): void
     {
         $data = $this->form->getState();
-
-        $user = Auth::user();
-
-        if (isset($data['current_password'])) {
-            if (! Hash::check($data['current_password'], $user->password)) {
-                Notification::make()
-                    ->title('Incorrect current password!')
-                    ->danger()
-                    ->send();
-                return;
-            }
-            $user->password = Hash::make($data['new_password']);
-        }
-
-        if (isset($data['foto'])) {
-            dd($data['foto']);
-            if ($user->foto) {
-                Storage::disk('public')->delete($user->foto);
-            }
-            $user->foto = $data['foto'];
-        }
-
-        $user->nama = $data['nama'];
-        $user->email = $data['email'];
-
-        $user->save();
-
-        Notification::make()
-            ->title('Profile updated successfully!')
-            ->success()
-            ->send();
+        dd($data);
     }
 }
