@@ -28,6 +28,17 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $user = Auth::user();
+
+        if ($user->level === 'admin') {
+            return redirect('/admin');
+        } elseif ($user->level === 'petugas') {
+            return redirect('/petugas'); // Assuming a 'petugas' panel path
+        } elseif ($user->level === 'anggota') {
+            return redirect(route('dashboard', absolute: false)); // Redirect 'anggota' to the general dashboard
+        }
+
+        // Default redirection if no specific role match
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
