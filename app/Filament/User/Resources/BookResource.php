@@ -120,7 +120,8 @@ class BookResource extends Resource
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'tersedia' => 'success',
-                        'dipinjam' => 'danger',
+                        'dipinjam' => 'warning',
+                        'rusak' => 'danger',
                         'terlambat' => 'danger',
                     }),
             ])
