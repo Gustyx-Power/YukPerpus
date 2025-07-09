@@ -42,6 +42,13 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 
             ])
+            ->navigationItems([
+                \Filament\Navigation\NavigationItem::make('Settings')
+                    ->url(fn (): string => route('profile.edit'))
+                    ->icon('heroicon-o-cog')
+                    ->group('Settings')
+                    ->sort(3),
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
