@@ -84,6 +84,7 @@ class Settings extends Page implements HasForms
         }
 
         if (isset($data['foto'])) {
+            dd($data['foto']);
             if ($user->foto) {
                 Storage::disk('public')->delete($user->foto);
             }
