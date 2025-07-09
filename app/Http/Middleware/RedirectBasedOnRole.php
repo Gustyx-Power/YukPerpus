@@ -23,18 +23,22 @@ class RedirectBasedOnRole
         }
 
         $user = Auth::user();
-        
-        // Redirect berdasarkan level
-        switch ($user->level) {
-            case 'admin':
-                return redirect('/admin');
-            case 'petugas':
-                return redirect('/petugas');
-            case 'anggota':
-                return redirect('/user');
-            default:
-                Auth::logout();
-                return redirect('/login')->with('error', 'Role tidak valid');
+
+        // Only redirect if the current path is /dashboard
+        if ($request->is('dashboard')) {
+            switch ($user->level) {
+                case 'admin':
+                    return redirect('/admin');
+                case 'petugas':
+                    return redirect('/petugas');
+                case 'anggota':
+                    return redirect('/user');
+                default:
+                    Auth::logout();
+                    return redirect('/login')->with('error', 'Role tidak valid');
+            }
         }
+
+        return $next($request);
     }
 } 
