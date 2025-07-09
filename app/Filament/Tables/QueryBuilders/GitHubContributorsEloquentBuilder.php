@@ -11,7 +11,7 @@ class GitHubContributorsEloquentBuilder extends Builder
 {
     protected Collection $collection;
 
-    public function __construct($query) // Change constructor to accept Query\Builder
+    public function __construct(\Illuminate\Database\Query\Builder $query)
     {
         parent::__construct($query);
     }
@@ -66,6 +66,8 @@ class GitHubContributorsEloquentBuilder extends Builder
 
     public function clone()
     {
-        return new static($this->collection);
+        $cloned = new static(new \Illuminate\Database\Query\Builder(app('db')->connection()));
+        $cloned->collection = $this->collection->clone();
+        return $cloned;
     }
 }
