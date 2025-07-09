@@ -32,32 +32,54 @@ class BookResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('judul')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(191),
                 Forms\Components\TextInput::make('isbn')
-                    ->label('ISBN')
-                    ->required(),
+                    ->maxLength(191)
+                    ->default(null),
                 Forms\Components\TextInput::make('pengarang')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(191),
                 Forms\Components\TextInput::make('penerbit')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(191),
                 Forms\Components\TextInput::make('tahun_terbit')
                     ->required()
                     ->numeric(),
+                Forms\Components\TextInput::make('jumlah_halaman')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\FileUpload::make('cover')
+                    ->image()
+                    ->imageResizeMode('cover')
+                    ->imageCropAspectRatio('16:9')
+                    ->imageResizeTargetWidth('1920')
+                    ->imageResizeTargetHeight('1080')
+                    ->directory('book-covers')
+                    ->visibility('public')
+                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('stok')
                     ->required()
                     ->numeric()
                     ->default(0),
-                Forms\Components\Select::make('kategori_id')
-                    ->relationship('kategori', 'nama')
+                Forms\Components\Textarea::make('deskripsi')
+                    ->columnSpanFull(),
+                Forms\Components\Select::make('category_id')
+                    ->relationship('category', 'nama')
+                    ->required()
+                    ->preload(),
+                Forms\Components\TextInput::make('lokasi_rak')
+                    ->maxLength(191)
+                    ->default(null),
+                Forms\Components\Select::make('status')
+                    ->options([
+                        'tersedia' => 'Tersedia',
+                        'dipinjam' => 'Dipinjam',
+                        'rusak' => 'Rusak',
+                    ])
                     ->required(),
-                Forms\Components\FileUpload::make('cover')
-                    ->image()
-                    ->directory('covers'),
-                Forms\Components\FileUpload::make('pdf_file')
-                    ->acceptedFileTypes(['application/pdf'])
-                    ->directory('books'),
+                Forms\Components\Toggle::make('active_status')
+                    ->required()
+                    ->default(true),
             ]);
     }
 
@@ -80,13 +102,15 @@ class BookResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('stok')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('kategori.nama')
+                Tables\Columns\TextColumn::make('category.nama')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'tersedia' => 'success',
                         'dipinjam' => 'danger',
+                        'terlambat' => 'danger',
+                        'rusak' => 'danger',
                     }),
             ])
             ->filters([

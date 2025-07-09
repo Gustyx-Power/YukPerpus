@@ -9,6 +9,13 @@ use Filament\Tables\Actions\Action;
 
 class BorrowingStats extends BaseWidget
 {
+    protected static ?int $sort = 2;
+
+    public static function getDefaultColumnSpan(): int
+    {
+        return 6;
+    }
+
     protected function getHeading(): string
     {
         return 'Statistik Peminjaman';

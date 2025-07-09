@@ -7,11 +7,14 @@ use App\Filament\Widgets\BookStats;
 use App\Filament\Widgets\BorrowingStats;
 use App\Filament\Widgets\RecentBorrowings;
 use App\Filament\Widgets\BookUserChart;
-use App\Filament\Widgets\PdfBooksTable;
+use App\Filament\Widgets\BookUserWeeklyChart;
+
 
 class Dashboard extends BaseDashboard
 {
     protected static ?string $navigationIcon = 'heroicon-o-home';
+
+    protected static ?string $title = 'YukPerpus';
 
     protected function getHeaderWidgets(): array
     {
@@ -19,8 +22,8 @@ class Dashboard extends BaseDashboard
             BookStats::class,
             BorrowingStats::class,
             BookUserChart::class,
+            BookUserWeeklyChart::class,
             RecentBorrowings::class,
-            PdfBooksTable::class,
         ];
     }
 
@@ -42,5 +45,10 @@ class Dashboard extends BaseDashboard
             ...parent::getViewData(),
             'showExportButtons' => true,
         ];
+    }
+
+    public function getWidgets(): array
+    {
+        return [];
     }
 } 

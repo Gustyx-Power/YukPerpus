@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Facade;
 
 return [
 
@@ -129,6 +130,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -139,7 +141,25 @@ return [
         App\Providers\Filament\AdminPanelProvider::class,
         App\Providers\Filament\UserPanelProvider::class,
         App\Providers\Filament\PetugasPanelProvider::class,
+        Filament\Forms\FormsServiceProvider::class,
+        BladeUI\Icons\BladeIconsServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+    ])->toArray(),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Class Aliases
+    |--------------------------------------------------------------------------
+    |
+    | This array of class aliases will be registered when this application
+    | is started. However, feel free to register as many as you wish as
+    | the aliases are "lazy" loaded so they don't hinder performance.
+    |
+    */
+
+    'aliases' => Facade::defaultAliases()->merge([
+        // 'Facade' => App\Facades\Facade::class,
+        'Pdf' => Barryvdh\DomPDF\Facade::class,
     ])->toArray(),
 
 ];

@@ -25,7 +25,7 @@ class LoanResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return 'Book Borrow';
+        return 'Reservasi Buku';
     }
 
     public static function getPluralLabel(): string
@@ -75,9 +75,7 @@ class LoanResource extends Resource
                 Tables\Columns\TextColumn::make('tanggal_kembali')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('tanggal_dikembalikan')
-                    ->date()
-                    ->sortable(),
+                
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
@@ -85,6 +83,7 @@ class LoanResource extends Resource
                         'dipinjam' => 'primary',
                         'dikembalikan' => 'success',
                         'dibatalkan' => 'danger',
+                        'terlambat' => 'danger',
                     }),
             ])
             ->filters([

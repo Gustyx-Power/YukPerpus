@@ -5,19 +5,21 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\BookResource\Pages;
 use App\Filament\Resources\BookResource\RelationManagers;
 use App\Models\Book;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class BookResource extends Resource
 {
     protected static ?string $model = Book::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
     public static function form(Form $form): Form
     {
@@ -58,7 +60,8 @@ class BookResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\Select::make('category_id')
                     ->relationship('category', 'nama')
-                    ->required(),
+                    ->required()
+                    ->preload(),
                 Forms\Components\TextInput::make('lokasi_rak')
                     ->maxLength(191)
                     ->default(null),
@@ -108,6 +111,7 @@ class BookResource extends Resource
                         'tersedia' => 'success',
                         'dipinjam' => 'warning',
                         'rusak' => 'danger',
+                        'terlambat' => 'danger',
                     }),
                 Tables\Columns\IconColumn::make('active_status')
                     ->boolean(),
@@ -132,6 +136,17 @@ class BookResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\BulkAction::make('export_pdf')
+                        ->visible(fn (): bool => auth()->user()->isAdmin() || auth()->user()->isPetugas())
+                        ->label('Download PDF')
+                        ->icon('heroicon-o-arrow-down-tray')
+                        ->action(function (Collection $records) {
+                            $records->load('category'); // Eager load category to prevent N+1 problem
+                            $pdf = Pdf::loadView('pdf.books', ['books' => $records]);
+                            return response()->streamDownload(function () use ($pdf) {
+                                echo $pdf->stream();
+                            }, 'laporan-buku.pdf');
+                        }),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);

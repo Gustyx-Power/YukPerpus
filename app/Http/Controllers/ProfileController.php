@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -23,36 +21,7 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $user = $request->user();
-        $data = $request->validated();
-
-        // Handle upload foto
-        if ($request->hasFile('foto')) {
-            // Hapus foto lama jika ada
-            if ($user->foto) {
-                Storage::delete('public/' . $user->foto);
-            }
-
-            $filename = Str::random(20) . '.' . $request->foto->extension();
-            $path = $request->foto->storeAs('public/profiles', $filename);
-            $data['foto'] = 'profiles/' . $filename;
-        }
-
-        $user->fill($data);
-
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
-
-        $user->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
+    
 
     /**
      * Delete the user's account.

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('tanggal_pinjam');
             $table->date('tanggal_kembali');
             $table->date('tanggal_dikembalikan')->nullable();
-            $table->enum('status', ['reserved', 'dipinjam', 'dikembalikan', 'dibatalkan'])->default('reserved');
+            $table->enum('status', ['reserved', 'dipinjam', 'dikembalikan', 'dibatalkan', 'terlambat'])->default('reserved');
             $table->text('keterangan')->nullable();
             
             // Added the 7 standard fields

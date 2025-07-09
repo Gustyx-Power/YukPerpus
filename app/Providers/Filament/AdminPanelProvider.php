@@ -18,6 +18,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Http\Middleware\CheckRole;
+use Illuminate\Support\Facades\Blade;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -27,18 +28,31 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->brandName('YukPerpus')
+            ->favicon(asset('assets/img/unsplash/logo.png'))
             ->colors([
                 'primary' => Color::Amber,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                \App\Filament\Pages\Credits::class,
+                \App\Filament\Pages\ExportPage::class,
+                \App\Filament\Pages\Rakbuku::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                
+            ])
+            ->plugins([
+                // Add any Filament plugins here
+            ])
+            ->navigationItems([
+                \Filament\Navigation\NavigationItem::make('Settings')
+                    ->url('/admin/settings')
+                    ->icon('heroicon-o-cog')
+                    ->group('Settings')
+                    ->sort(3),
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -55,5 +69,6 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
                 CheckRole::class.':admin',
             ]);
+            // ->viteTheme('resources/css/filament-custom.css');
     }
 }

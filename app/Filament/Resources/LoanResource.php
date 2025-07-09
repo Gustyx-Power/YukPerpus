@@ -17,7 +17,7 @@ class LoanResource extends Resource
 {
     protected static ?string $model = Loan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-bookmark';
+    protected static ?string $navigationIcon = 'heroicon-o-document-duplicate';
 
     public static function getNavigationGroup(): ?string
     {
@@ -26,7 +26,7 @@ class LoanResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return 'Book Borrow';
+        return 'Reservasi Buku';
     }
 
     public static function getPluralLabel(): string
@@ -52,7 +52,8 @@ class LoanResource extends Resource
                     ->required(),
                 Forms\Components\DatePicker::make('tanggal_kembali')
                     ->required(),
-                Forms\Components\DatePicker::make('tanggal_dikembalikan'),
+                Forms\Components\DatePicker::make('tanggal_dikembalikan')
+                    ->hidden(fn (?string $operation) => $operation === 'create'),
                 Forms\Components\Select::make('status')
                     ->options([
                         'reserved' => 'Reserved',
@@ -84,9 +85,7 @@ class LoanResource extends Resource
                 Tables\Columns\TextColumn::make('tanggal_kembali')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('tanggal_dikembalikan')
-                    ->date()
-                    ->sortable(),
+                
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
@@ -94,6 +93,7 @@ class LoanResource extends Resource
                         'dipinjam' => 'primary',
                         'dikembalikan' => 'success',
                         'dibatalkan' => 'danger',
+                        'terlambat' => 'danger',
                     }),
             ])
             ->filters([
