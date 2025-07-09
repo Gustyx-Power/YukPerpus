@@ -44,7 +44,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->navigationItems([
                 \Filament\Navigation\NavigationItem::make('Settings')
-                    ->url(fn (): string => route('profile.edit'))
+                    ->url('/admin/settings')
                     ->icon('heroicon-o-cog')
                     ->group('Settings')
                     ->sort(3),
