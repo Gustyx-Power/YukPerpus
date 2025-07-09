@@ -67,7 +67,7 @@ class GitHubContributorsEloquentBuilder extends Builder
     public function clone()
     {
         $cloned = new static(new \Illuminate\Database\Query\Builder(app('db')->connection()));
-        $cloned->collection = $this->collection->clone();
+        $cloned->collection = \Illuminate\Support\Collection::make($this->collection->all());
         return $cloned;
     }
 }
