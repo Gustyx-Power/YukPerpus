@@ -69,10 +69,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('users', UserController::class);
     });
 
-    // Profile routes
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
 
     // Report generation routes (admin and petugas only)
     Route::middleware(['role:admin', 'role:petugas'])->group(function () {
